@@ -1,0 +1,43 @@
+<testbench>
+	<component name="latch_gen" type="concurrent" interval="1 us"/>
+
+	<signals>
+		<in name="n_le" pos="0" val="1"/>
+		<in_vec name="a" pos="1" size="2" order="desc" val="00"/>
+
+		<out_vec name="z" pos="3" size="2" order="desc"/>
+	</signals>
+
+	<backends>
+		<vhdl>
+			<generics>
+				<param name="BUS_WIDTH" type="NATURAL" val="2"/>
+			</generics>
+		</vhdl>
+		<hw>
+			<loop count="100"/>
+		</hw>
+	</backends>
+
+	<testcases>
+		<!-- TEST 1 -->
+		<test name="TEST1: forward signal when not latched">
+			<seq>
+				<vec>#### 1 00 ll</vec>
+				<vec>#### - 11 hh</vec>
+			</seq>
+		</test>
+
+		<!-- TEST 2 -->
+		<test name="TEST2: signal latched">
+			<seq>
+				<vec>#### 1 11 hh</vec>
+				<vec>#### 0 11 hh</vec>
+				<vec>#### - 10 hh</vec>
+				<vec>#### 1 00 ll</vec>
+				<vec>#### 0 00 ll</vec>
+				<vec>#### - 10 ll</vec>
+			</seq>
+		</test>
+	</testcases>
+</testbench>

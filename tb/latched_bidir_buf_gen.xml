@@ -1,0 +1,105 @@
+<testbench>
+	<component name="latched_bidir_buf_gen" type="concurrent" interval="1 us"/>
+
+	<signals>
+		<in name="dir" pos="0" val="0"/>
+
+		<in name="n_le_a" pos="1" val="1"/>
+		<in name="n_le_b" pos="2" val="1"/>
+		<in name="n_oe_a" pos="3" val="0"/>
+		<in name="n_oe_b" pos="4" val="0"/>
+
+		<inout_vec name="a" pos="5" size="2" order="desc" val="ZZ"/>
+		<inout_vec name="b" pos="7" size="2" order="desc" val="ZZ"/>
+	</signals>
+
+	<backends>
+		<vhdl>
+			<generics>
+				<param name="BUS_WIDTH" type="NATURAL" val="2"/>
+			</generics>
+		</vhdl>
+		<hw>
+			<loop count="100"/>
+		</hw>
+	</backends>
+
+	<testcases>
+		<!-- TEST 1 -->
+		<test name="TEST1: a := b when dir = 0, oe = 0, le = 1">
+			<seq>
+				<vec>#### 0 - - - - LH 01</vec>
+				<vec>#### - - - - - HL 10</vec>
+			</seq>
+		</test>
+		<!-- TEST 2 -->
+		<test name="TEST2: b := a when dir = 1, oe = 0, le = 1">
+			<seq>
+				<vec>#### 1 - - - - 10 HL</vec>
+				<vec>#### - - - - - 01 LH</vec>
+			</seq>
+		</test>
+		<!-- TEST 3 -->
+		<test name="TEST3: a = hi-z, b waiting for input - hi-z when dir = 0, a oe = 1, le = 1">
+			<seq>
+				<vec>#### 0 - - 1 - ZZ ZZ</vec>
+				<vec>#### - - - 1 - 11 ZZ</vec>
+				<vec>#### - - - 1 - hh ZZ</vec>
+				<vec>#### - - - 1 - 00 ZZ</vec>
+				<vec>#### - - - 1 - ll ZZ</vec>
+			</seq>
+		</test>
+		<!-- TEST 4 -->
+		<test name="TEST4: b = hi-z, a waiting for input - hi-z when dir = 1, a oe = 1, le = 1">
+			<seq>
+				<vec>#### 0 - - - 1 ZZ ZZ</vec>
+				<vec>#### - - - - 1 ZZ 11</vec>
+				<vec>#### - - - - 1 ZZ hh</vec>
+				<vec>#### - - - - 1 ZZ 00</vec>
+				<vec>#### - - - - 1 ZZ ll</vec>
+			</seq>
+		</test>
+
+		<!-- latched -->
+		<!-- TEST 5 -->
+		<test name="TEST5: a := b latched when dir = 0, oe = 0, b le = 0">
+			<seq>
+				<vec>#### 0 1 1 - - LL 00</vec>
+				<vec>#### - 1 0 - - LL 11</vec>
+
+				<vec>#### 0 1 1 - - HH 11</vec>
+				<vec>#### - 1 0 - - HH 00</vec>
+			</seq>
+		</test>
+		<!-- TEST 6 -->
+		<test name="TEST6: b := a latched when dir = 1, oe = 0, a le = 0">
+			<seq>
+				<vec>#### 1 1 1 - - 00 LL</vec>
+				<vec>#### - 0 1 - - 11 LL</vec>
+
+				<vec>#### 1 1 1 - - 11 HH</vec>
+				<vec>#### - 0 1 - - 00 HH</vec>
+			</seq>
+		</test>
+		<!-- TEST 7 -->
+		<test name="TEST7: a = hi-z no matter what is latched when dir = 0, oe = 1, le = 0">
+			<seq>
+				<vec>#### 0 1 1 1 1 ZZ 00</vec>
+				<vec>#### - 0 1 - - ZZ 11</vec>
+				<vec>#### - 1 0 - - ZZ 00</vec>
+				<vec>#### - 0 1 - - ZZ 11</vec>
+				<vec>#### - 1 0 - - ZZ 00</vec>
+			</seq>
+		</test>
+		<!-- TEST 8 -->
+		<test name="TEST8: b = hi-z no matter what is latched when dir = 0, oe = 1, le = 0">
+			<seq>
+				<vec>#### 1 1 1 1 1 ZZ 00</vec>
+				<vec>#### - 0 1 - - ZZ 11</vec>
+				<vec>#### - 1 0 - - ZZ 00</vec>
+				<vec>#### - 0 1 - - ZZ 11</vec>
+				<vec>#### - 1 0 - - ZZ 00</vec>
+			</seq>
+		</test>
+	</testcases>
+</testbench>

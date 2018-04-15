@@ -1,0 +1,99 @@
+<testbench>
+	<component name="counter_gen" type="sequential" interval="5 us"/>
+
+	<signals>
+		<clock name="clk" freq="100 k" val="0"/>
+
+		<in name="clr" pos="0" val="0"/>
+		<in_vec name="value" pos="1" size="4" order="desc" val="0000"/>
+
+		<out name="ovf" pos="5"/>
+	</signals>
+
+	<backends>
+		<vhdl>
+			<generics>
+				<param name="VALUE_WIDTH" type="NATURAL" val="4"/>
+			</generics>
+		</vhdl>
+		<hw>
+			<loop count="100"/>
+		</hw>
+	</backends>
+
+	<testcases>
+		<!-- TEST 1 -->
+		<test name="TEST1: do not set output when inactive">
+			<step>
+				<set sig="clr" val="1"/>
+				<set_vec sig="value" val="0001"/>
+				<exp sig="ovf" val="l"/>
+			</step>
+			<step after="u025">
+				<exp sig="ovf" val="l"/>
+			</step>
+		</test>
+
+		<!-- TEST 2 -->
+		<test name="TEST2: output unchanged when clock disabled" clock_disable="clk">
+			<seq>
+				<vec>#### 1 ---- -</vec>
+				<vec>#### 0 0010 l</vec>
+				<vec>u015 - ---- l</vec>
+				<vec>u015 - ---- l</vec>
+			</seq>
+		</test>
+
+		<!-- TEST 3 -->
+		<test name="TEST3: set output when value reached" clock_reset="clk">
+			<seq>
+				<vec>#### 1 0010 l</vec>
+				<vec>#### 0 ---- l</vec>
+				<vec>#### - ---- l</vec>
+				<vec>#### - ---- l</vec>
+				<vec>#### - ---- h</vec>
+				<vec>u050 - ---- h</vec>
+			</seq>
+		</test>
+
+		<!-- TEST 4 -->
+		<test name="TEST4: reset on clr when value reached" clock_reset="clk">
+			<seq>
+				<vec>#### 1 0010 l</vec>
+				<vec>#### 0 ---- l</vec>
+				<vec>#### - ---- l</vec>
+				<vec>#### - ---- l</vec>
+				<vec>#### - ---- h</vec>
+				<vec>#### 1 ---- l</vec>
+			</seq>
+		</test>
+
+		<!-- TEST 5 -->
+		<test name="TEST5: reaction on increased value" clock_reset="clk">
+			<seq>
+				<vec>#### 1 0010 l</vec>
+				<vec>#### 0 ---- l</vec>
+				<vec>#### - ---- l</vec>
+				<vec>#### - ---- l</vec>
+				<vec>#### - ---- h</vec>
+				<vec>#### - 0100 h</vec>
+				<vec>#### - ---- l</vec>
+				<vec>#### - ---- l</vec>
+				<vec>#### - ---- h</vec>
+			</seq>
+		</test>
+
+		<!-- TEST 6 -->
+		<test name="TEST5: reaction on increased value" clock_reset="clk">
+			<seq>
+				<vec>#### 1 0010 l</vec>
+				<vec>#### 0 ---- l</vec>
+				<vec>#### - ---- l</vec>
+				<vec>#### - ---- l</vec>
+				<vec>#### - ---- h</vec>
+				<vec>#### - 0001 h</vec>
+				<vec>#### - ---- h</vec>
+			</seq>
+		</test>
+	</testcases>
+</testbench>
