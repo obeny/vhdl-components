@@ -2,10 +2,10 @@
 	<component name="latch_gen" type="concurrent" interval="1 us"/>
 
 	<signals>
-		<in name="n_le" pos="0" val="1"/>
-		<in_vec name="a" pos="1" size="2" order="desc" val="00"/>
+		<in name="n_le" val="1"/>
+		<in_vec name="a" size="2" order="desc" val="00"/>
 
-		<out_vec name="z" pos="3" size="2" order="desc"/>
+		<out_vec name="z" size="2" order="desc"/>
 	</signals>
 
 	<backends>

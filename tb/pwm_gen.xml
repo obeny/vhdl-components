@@ -4,11 +4,11 @@
 	<signals>
 		<clock name="clk" freq="100 k" val="0"/>
 
-		<in name="pol" pos="0" val="0"/>
-		<in_vec name="topval" pos="1" size="4" order="desc" val="0000"/>
-		<in_vec name="fill" pos="5" size="4" order="desc" val="0000"/>
+		<in name="pol" val="0"/>
+		<in_vec name="topval" size="4" order="desc" val="0000"/>
+		<in_vec name="fill" size="4" order="desc" val="0000"/>
 
-		<out name="z" pos="9"/>
+		<out name="z"/>
 	</signals>
 
 	<backends>

@@ -4,9 +4,9 @@
 	<signals>
 		<clock name="clk" freq="100 k" val="0"/>
 
-		<in name="clr" pos="0" val="0"/>
+		<in name="clr" val="0"/>
 
-		<out name="z" pos="1"/>
+		<out name="z"/>
 	</signals>
 
 	<backends>

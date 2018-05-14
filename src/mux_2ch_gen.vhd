@@ -9,7 +9,7 @@ entity mux_2ch_gen is
 		s : in STD_LOGIC;
 		a : in STD_LOGIC_VECTOR ((BUS_WIDTH-1) downto 0);
 		b : in STD_LOGIC_VECTOR ((BUS_WIDTH-1) downto 0);
-		
+
 		z : out STD_LOGIC_VECTOR ((BUS_WIDTH-1) downto 0)
 	);
 end mux_2ch_gen;
