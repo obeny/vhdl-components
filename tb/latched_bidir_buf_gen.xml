@@ -30,6 +30,7 @@
 			<seq>
 				<vec>#### 0 - - - - LH 01</vec>
 				<vec>#### - - - - - HL 10</vec>
+				<vec>#### - - - - - -- ZZ</vec>
 			</seq>
 		</test>
 		<!-- TEST 2 -->
@@ -37,26 +38,25 @@
 			<seq>
 				<vec>#### 1 - - - - 10 HL</vec>
 				<vec>#### - - - - - 01 LH</vec>
+				<vec>#### - - - - - ZZ --</vec>
 			</seq>
 		</test>
 		<!-- TEST 3 -->
 		<test name="TEST3: a = hi-z, b waiting for input - hi-z when dir = 0, a oe = 1, le = 1">
 			<seq>
 				<vec>#### 0 - - 1 - ZZ ZZ</vec>
-				<vec>#### - - - 1 - 11 ZZ</vec>
-				<vec>#### - - - 1 - hh ZZ</vec>
-				<vec>#### - - - 1 - 00 ZZ</vec>
-				<vec>#### - - - 1 - ll ZZ</vec>
+				<vec>#### - - - - - 11 ZZ</vec>
+				<vec>#### - - - - - 00 ZZ</vec>
+				<vec>#### - - - - - ZZ ZZ</vec>
 			</seq>
 		</test>
 		<!-- TEST 4 -->
-		<test name="TEST4: b = hi-z, a waiting for input - hi-z when dir = 1, a oe = 1, le = 1">
+		<test name="TEST4: b = hi-z, a waiting for input - hi-z when dir = 1, b oe = 1, le = 1">
 			<seq>
-				<vec>#### 0 - - - 1 ZZ ZZ</vec>
-				<vec>#### - - - - 1 ZZ 11</vec>
-				<vec>#### - - - - 1 ZZ hh</vec>
-				<vec>#### - - - - 1 ZZ 00</vec>
-				<vec>#### - - - - 1 ZZ ll</vec>
+				<vec>#### 1 - - - 1 ZZ ZZ</vec>
+				<vec>#### - - - - - ZZ 11</vec>
+				<vec>#### - - - - - ZZ 00</vec>
+				<vec>#### - - - - - ZZ ZZ</vec>
 			</seq>
 		</test>
 
@@ -64,21 +64,29 @@
 		<!-- TEST 5 -->
 		<test name="TEST5: a := b latched when dir = 0, oe = 0, b le = 0">
 			<seq>
-				<vec>#### 0 1 1 - - LL 00</vec>
-				<vec>#### - 1 0 - - LL 11</vec>
+				<vec>#### 0 1 1 - - -- ZZ</vec>
+				<vec>#### - - - - - LL 00</vec>
+				<vec>#### - - 0 - - LL 11</vec>
+				<vec>#### - - - - - LL ZZ</vec>
 
-				<vec>#### 0 1 1 - - HH 11</vec>
-				<vec>#### - 1 0 - - HH 00</vec>
+				<vec>#### 0 1 1 - - -- ZZ</vec>
+				<vec>#### - - - - - HH 11</vec>
+				<vec>#### - - 0 - - HH 00</vec>
+				<vec>#### - - - - - HH ZZ</vec>
 			</seq>
 		</test>
 		<!-- TEST 6 -->
 		<test name="TEST6: b := a latched when dir = 1, oe = 0, a le = 0">
 			<seq>
-				<vec>#### 1 1 1 - - 00 LL</vec>
-				<vec>#### - 0 1 - - 11 LL</vec>
+				<vec>#### 1 1 1 - - ZZ --</vec>
+				<vec>#### - - - - - 00 LL</vec>
+				<vec>#### - 0 - - - 11 LL</vec>
+				<vec>#### - - - - - ZZ LL</vec>
 
-				<vec>#### 1 1 1 - - 11 HH</vec>
-				<vec>#### - 0 1 - - 00 HH</vec>
+				<vec>#### 1 1 1 - - ZZ --</vec>
+				<vec>#### - - - - - 11 HH</vec>
+				<vec>#### - 0 - - - 00 HH</vec>
+				<vec>#### - - - - - ZZ HH</vec>
 			</seq>
 		</test>
 		<!-- TEST 7 -->
@@ -86,9 +94,13 @@
 			<seq>
 				<vec>#### 0 1 1 1 1 ZZ 00</vec>
 				<vec>#### - 0 1 - - ZZ 11</vec>
+				<vec>#### - 1 1 - - ZZ 11</vec>
 				<vec>#### - 1 0 - - ZZ 00</vec>
+				<vec>#### - 1 1 - - ZZ 00</vec>
 				<vec>#### - 0 1 - - ZZ 11</vec>
+				<vec>#### - 1 1 - - ZZ 11</vec>
 				<vec>#### - 1 0 - - ZZ 00</vec>
+				<vec>#### - 1 1 - - ZZ 00</vec>
 			</seq>
 		</test>
 		<!-- TEST 8 -->
@@ -96,9 +108,13 @@
 			<seq>
 				<vec>#### 1 1 1 1 1 ZZ 00</vec>
 				<vec>#### - 0 1 - - ZZ 11</vec>
+				<vec>#### - 1 1 - - ZZ 11</vec>
 				<vec>#### - 1 0 - - ZZ 00</vec>
+				<vec>#### - 1 1 - - ZZ 00</vec>
 				<vec>#### - 0 1 - - ZZ 11</vec>
+				<vec>#### - 1 1 - - ZZ 11</vec>
 				<vec>#### - 1 0 - - ZZ 00</vec>
+				<vec>#### - 1 1 - - ZZ 00</vec>
 			</seq>
 		</test>
 	</testcases>
